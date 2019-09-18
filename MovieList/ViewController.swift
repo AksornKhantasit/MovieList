@@ -59,7 +59,7 @@ class ViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail",
             let viewController = segue.destination as? DetailViewController,
-            let movieItem = sender as? Movie {
+            let movieItem = sender as? Results {
             viewController.movieItem = movieItem
         }
     }
