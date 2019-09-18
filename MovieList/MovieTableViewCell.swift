@@ -7,18 +7,34 @@
 //
 
 import UIKit
+import Kingfisher
+
+var imageCache: [String: UIImage] = [:]
 
 class MovieTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var popular: UILabel!
+    @IBOutlet weak var rating: UILabel!
+    @IBOutlet weak var movieImage: UIImageView!
+    @IBOutlet weak var backdropImage: UIImageView!
     
+    
+    func setupUI(movie: Results) {
+        title.text = movie.title
+        popular.text = "\(movie.popularity)"
+        
+        let baseURL = "https://image.tmdb.org/t/p/original"
+        let posterPath = movie.posterPath
+        let backdropPath = movie.backdropPath
+        if let posterPath = posterPath {
+            let url = URL(string: "\(baseURL)\(posterPath)")
+            movieImage.kf.setImage(with: url)
+        }
+        if let backdropPath = backdropPath {
+            let url = URL(string: "\(baseURL)\(backdropPath)")
+            backdropImage.kf.setImage(with: url)
+
+        }
+    }
 }
