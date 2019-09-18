@@ -34,3 +34,18 @@ struct Results: Codable {
         case posterPath = "poster_path"
     }
 }
+
+struct MovieDetail: Codable {
+    let genres: [Genres]
+    let Language: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case genres
+        case Language = "original_language"
+    }
+}
+
+struct Genres: Codable {
+    //let id: Int
+    let name: String
+}

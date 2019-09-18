@@ -86,13 +86,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Popularity:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hxI-dy-gOe">
-                                <rect key="frame" x="40" y="558" width="91" height="23"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <rect key="frame" x="40" y="558" width="100" height="23"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="popular" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rLh-Zc-RgZ">
-                                <rect key="frame" x="139" y="558" width="255" height="23"/>
+                                <rect key="frame" x="148" y="558" width="246" height="23"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -104,35 +104,75 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Category:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zQ3-qB-VLz">
-                                <rect key="frame" x="40" y="714" width="84" height="23"/>
+                                <rect key="frame" x="40" y="714" width="91" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="23" id="K2B-ag-bmB"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Language:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9bi-LU-rqT">
-                                <rect key="frame" x="40" y="754" width="90" height="23"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <rect key="frame" x="40" y="754" width="96" height="23"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aG5-K6-NmF">
+                                <rect key="frame" x="146" y="716" width="248" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I30-dj-A0Q">
+                                <rect key="frame" x="148" y="756" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h6m-ID-cqF" customClass="CosmosView" customModule="Cosmos">
+                                <rect key="frame" x="110" y="466" width="195" height="35"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="starSize">
+                                        <real key="value" value="35"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
+                                        <color key="value" red="0.94668287038803101" green="0.63522708415985107" blue="0.24300834536552429" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="rLh-Zc-RgZ" firstAttribute="top" secondItem="h6m-ID-cqF" secondAttribute="bottom" constant="57" id="3QO-HK-Fu6"/>
                             <constraint firstItem="zQ3-qB-VLz" firstAttribute="leading" secondItem="9bi-LU-rqT" secondAttribute="leading" id="3TG-NB-MS9"/>
                             <constraint firstItem="cbp-Mb-AKv" firstAttribute="top" secondItem="tyE-eD-9gY" secondAttribute="bottom" constant="10" id="8RP-zr-NXw"/>
+                            <constraint firstItem="aG5-K6-NmF" firstAttribute="leading" secondItem="zQ3-qB-VLz" secondAttribute="trailing" constant="15" id="9Vm-wx-tPw"/>
+                            <constraint firstItem="h6m-ID-cqF" firstAttribute="top" secondItem="cbp-Mb-AKv" secondAttribute="bottom" constant="35.5" id="9sm-DE-N8o"/>
                             <constraint firstItem="tyE-eD-9gY" firstAttribute="leading" secondItem="Rge-js-JAq" secondAttribute="leading" constant="20" id="DIi-Nj-f0n"/>
+                            <constraint firstItem="h6m-ID-cqF" firstAttribute="leading" secondItem="Rge-js-JAq" secondAttribute="leading" constant="110" id="GgM-Kr-Kos"/>
                             <constraint firstItem="Rge-js-JAq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9bi-LU-rqT" secondAttribute="trailing" symbolic="YES" id="Hd7-wn-xN7"/>
+                            <constraint firstItem="Rge-js-JAq" firstAttribute="trailing" secondItem="I30-dj-A0Q" secondAttribute="trailing" constant="224" id="KaP-Gp-NMo"/>
                             <constraint firstItem="Rge-js-JAq" firstAttribute="trailing" secondItem="ax4-z3-32f" secondAttribute="trailing" constant="20" id="L4O-gR-EgO"/>
+                            <constraint firstItem="I30-dj-A0Q" firstAttribute="top" secondItem="aG5-K6-NmF" secondAttribute="bottom" constant="19" id="LNV-rx-iTo"/>
                             <constraint firstItem="tyE-eD-9gY" firstAttribute="top" secondItem="Rge-js-JAq" secondAttribute="top" id="NWD-ML-g0q"/>
                             <constraint firstItem="hxI-dy-gOe" firstAttribute="leading" secondItem="Rge-js-JAq" secondAttribute="leading" constant="40" id="PI0-Zn-Wt1"/>
+                            <constraint firstItem="Rge-js-JAq" firstAttribute="trailing" secondItem="h6m-ID-cqF" secondAttribute="trailing" constant="109" id="PrC-et-2Qk"/>
                             <constraint firstAttribute="bottom" secondItem="zQ3-qB-VLz" secondAttribute="bottom" constant="159" id="UUu-ot-DrC"/>
+                            <constraint firstItem="I30-dj-A0Q" firstAttribute="leading" secondItem="9bi-LU-rqT" secondAttribute="trailing" constant="12" id="V1G-bc-rqR"/>
                             <constraint firstItem="ax4-z3-32f" firstAttribute="top" secondItem="hxI-dy-gOe" secondAttribute="bottom" constant="21" id="aLM-ai-IPg"/>
+                            <constraint firstItem="Rge-js-JAq" firstAttribute="trailing" secondItem="aG5-K6-NmF" secondAttribute="trailing" constant="20" id="aVU-le-kcp"/>
                             <constraint firstItem="Rge-js-JAq" firstAttribute="trailing" secondItem="rLh-Zc-RgZ" secondAttribute="trailing" constant="20" id="d8X-wq-jdT"/>
                             <constraint firstItem="cbp-Mb-AKv" firstAttribute="leading" secondItem="Rge-js-JAq" secondAttribute="leading" constant="40" id="doR-RW-Cgt"/>
                             <constraint firstItem="rLh-Zc-RgZ" firstAttribute="baseline" secondItem="hxI-dy-gOe" secondAttribute="baseline" id="esd-Ii-pTI"/>
+                            <constraint firstItem="aG5-K6-NmF" firstAttribute="top" secondItem="ax4-z3-32f" secondAttribute="bottom" constant="22" id="frv-JX-qbF"/>
                             <constraint firstItem="Rge-js-JAq" firstAttribute="trailing" secondItem="cbp-Mb-AKv" secondAttribute="trailing" constant="20" id="gLK-Lb-coN"/>
                             <constraint firstItem="zQ3-qB-VLz" firstAttribute="leading" secondItem="hxI-dy-gOe" secondAttribute="leading" id="jXH-ri-uew"/>
                             <constraint firstItem="Rge-js-JAq" firstAttribute="trailing" secondItem="tyE-eD-9gY" secondAttribute="trailing" constant="20" id="mLk-em-zgE"/>
@@ -147,6 +187,11 @@
                         <viewLayoutGuide key="safeArea" id="Rge-js-JAq"/>
                     </view>
                     <connections>
+                        <outlet property="CategoryLable" destination="zQ3-qB-VLz" id="9cJ-ar-Bn2"/>
+                        <outlet property="LanguageLable" destination="9bi-LU-rqT" id="18W-14-7Ef"/>
+                        <outlet property="category" destination="aG5-K6-NmF" id="MKq-pH-Tn6"/>
+                        <outlet property="cosmos" destination="h6m-ID-cqF" id="Nlv-d2-mXY"/>
+                        <outlet property="language" destination="I30-dj-A0Q" id="mdz-Yj-ulD"/>
                         <outlet property="movieImage" destination="tyE-eD-9gY" id="brE-Pk-Ol0"/>
                         <outlet property="overView" destination="ax4-z3-32f" id="LSY-lQ-44e"/>
                         <outlet property="popular" destination="rLh-Zc-RgZ" id="MYo-EZ-YTJ"/>

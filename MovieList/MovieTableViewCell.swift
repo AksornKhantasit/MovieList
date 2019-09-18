@@ -36,5 +36,7 @@ class MovieTableViewCell: UITableViewCell {
             backdropImage.kf.setImage(with: url)
 
         }
+        
+        rating.text = "\(movie.voteAverage)"
     }
 }
