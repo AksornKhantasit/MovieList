@@ -36,11 +36,16 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="V59-65-kUM"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cvh-bH-vev">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="cvh-bH-vev" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="AK6-8x-EDb"/>
                             <constraint firstItem="838-DU-gxu" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="CRJ-Ty-TZ9"/>
                             <constraint firstItem="838-DU-gxu" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="F6d-s5-yyw"/>
+                            <constraint firstItem="cvh-bH-vev" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LTU-Pi-yIB"/>
                             <constraint firstItem="838-DU-gxu" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="SkJ-xn-bgW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="838-DU-gxu" secondAttribute="trailing" id="Wvk-k7-g99"/>
                         </constraints>
@@ -54,6 +59,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="loadingView" destination="cvh-bH-vev" id="EnN-rH-qjr"/>
                         <outlet property="tableView" destination="838-DU-gxu" id="Vwp-7h-jpv"/>
                         <segue destination="Dkn-Ub-bXY" kind="show" identifier="showDetail" id="eaf-cU-rAb"/>
                     </connections>
@@ -62,20 +68,44 @@
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="129.91071428571428"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail View Controller-->
         <scene sceneID="afK-Zs-2Mz">
             <objects>
-                <viewController id="Dkn-Ub-bXY" sceneMemberID="viewController">
+                <viewController id="Dkn-Ub-bXY" customClass="DetailViewController" customModule="MovieList" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vo7-Ra-Kkk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tyE-eD-9gY">
+                                <rect key="frame" x="20" y="88" width="374" height="306"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cbp-Mb-AKv">
+                                <rect key="frame" x="40" y="404" width="354" height="26.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cbp-Mb-AKv" firstAttribute="top" secondItem="tyE-eD-9gY" secondAttribute="bottom" constant="10" id="8RP-zr-NXw"/>
+                            <constraint firstItem="tyE-eD-9gY" firstAttribute="leading" secondItem="Rge-js-JAq" secondAttribute="leading" constant="20" id="DIi-Nj-f0n"/>
+                            <constraint firstItem="tyE-eD-9gY" firstAttribute="top" secondItem="Rge-js-JAq" secondAttribute="top" id="NWD-ML-g0q"/>
+                            <constraint firstItem="cbp-Mb-AKv" firstAttribute="leading" secondItem="Rge-js-JAq" secondAttribute="leading" constant="40" id="doR-RW-Cgt"/>
+                            <constraint firstItem="Rge-js-JAq" firstAttribute="trailing" secondItem="cbp-Mb-AKv" secondAttribute="trailing" constant="20" id="gLK-Lb-coN"/>
+                            <constraint firstItem="Rge-js-JAq" firstAttribute="trailing" secondItem="tyE-eD-9gY" secondAttribute="trailing" constant="20" id="mLk-em-zgE"/>
+                            <constraint firstItem="Rge-js-JAq" firstAttribute="bottom" secondItem="tyE-eD-9gY" secondAttribute="bottom" constant="468" id="zLA-Gr-gDy"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Rge-js-JAq"/>
                     </view>
+                    <connections>
+                        <outlet property="movieImage" destination="tyE-eD-9gY" id="brE-Pk-Ol0"/>
+                        <outlet property="title" destination="cbp-Mb-AKv" id="keH-O7-hnr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Uzb-5e-L35" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1823" y="127"/>
+            <point key="canvasLocation" x="1821.7391304347827" y="126.5625"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WVe-60-IOj">
