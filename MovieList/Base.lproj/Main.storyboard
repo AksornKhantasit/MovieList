@@ -54,7 +54,7 @@
                     <navigationItem key="navigationItem" id="ZaL-JP-7Gi">
                         <barButtonItem key="rightBarButtonItem" title="Sort" id="NhJ-bM-1Ca">
                             <connections>
-                                <action selector="sort:" destination="BYZ-38-t0r" id="psE-2l-b5f"/>
+                                <action selector="sort:" destination="BYZ-38-t0r" id="7k8-Ct-Ku5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

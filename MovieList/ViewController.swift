@@ -21,15 +21,42 @@ class ViewController: UIViewController {
         let bundle = Bundle(for: MovieTableViewCell.self)
         let nib = UINib(nibName: "MovieTableViewCell", bundle: bundle)
         tableView.register(nib, forCellReuseIdentifier: "MovieTableViewCell")
-        getMovies()
+        getMovies(sortBy: "desc")
         
     }
     
-    func getMovies() {
+    @IBAction func sort(_ sender: Any) {
+        showAlert()
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Sort", message: "you want to sort by...", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "ASC", style: .default, handler: { (_) in
+            self.movies.removeAll()
+            self.page = 1
+            self.getMovies(sortBy: "asc")
+        }))
+        
+        alert.addAction(UIAlertAction(title: "DESC", style: .default, handler: { (_) in
+            self.movies.removeAll()
+            self.page = 1
+            self.getMovies(sortBy: "desc")
+          
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (_) in
+            print("You've pressed the Cancel")
+        }))
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    
+    func getMovies(sortBy: String) {
         loadingView.isHidden = false
         
         let apiManager = APIManager()
-        apiManager.getMovies(urlString: "http://api.themoviedb.org/3/discover/movie?api_key=328c283cd27bd1877d9080ccb1604c91&primary_release_date.lte=2016-12-31&sort_by=release_date.desc&page=\(page)") { [weak self] (result: Result<Movie, APIError>) in
+        apiManager.getMovies(urlString: "http://api.themoviedb.org/3/discover/movie?api_key=328c283cd27bd1877d9080ccb1604c91&primary_release_date.lte=2016-12-31&sort_by=release_date.\(sortBy)&page=\(page)") { [weak self] (result: Result<Movie, APIError>) in
             switch result {
             case .success(let movies):
                 self?.movies += movies.results
@@ -49,11 +76,10 @@ class ViewController: UIViewController {
                 }
             }
         }
-        
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == movies.count - 1 && loadingView.isHidden {
-            getMovies()
+            getMovies(sortBy: "desc")
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
