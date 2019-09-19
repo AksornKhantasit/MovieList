@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     var movies: [Results] = []
     var page = 1
+    var sortBy = "desc"
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
@@ -35,14 +36,15 @@ class ViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "ASC", style: .default, handler: { (_) in
             self.movies.removeAll()
             self.page = 1
+            self.sortBy = "asc"
             self.getMovies(sortBy: "asc")
         }))
         
         alert.addAction(UIAlertAction(title: "DESC", style: .default, handler: { (_) in
             self.movies.removeAll()
             self.page = 1
+            self.sortBy = "desc"
             self.getMovies(sortBy: "desc")
-          
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (_) in
@@ -79,7 +81,12 @@ class ViewController: UIViewController {
     }
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == movies.count - 1 && loadingView.isHidden {
-            getMovies(sortBy: "desc")
+            if sortBy == "desc" {
+                getMovies(sortBy: "desc")
+            }
+            else {
+                getMovies(sortBy: "asc")
+            }
         }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
