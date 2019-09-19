@@ -19,7 +19,6 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var backdropImage: UIImageView!
     
-    
     func setupUI(movie: Results) {
         title.text = movie.title
         popular.text = "\(movie.popularity)"
@@ -34,9 +33,13 @@ class MovieTableViewCell: UITableViewCell {
         if let backdropPath = backdropPath {
             let url = URL(string: "\(baseURL)\(backdropPath)")
             backdropImage.kf.setImage(with: url)
-
         }
-        
-        rating.text = "\(movie.voteAverage)"
+        var getavg = Double(UserDefaults.standard.string(forKey: "avg\(movie.id)") ?? "0") as! Double
+        if getavg == 0.0 {
+            rating.text = "\(movie.voteAverage)"
+        }
+        else {
+            rating.text = "\(getavg)"
+        }
     }
 }

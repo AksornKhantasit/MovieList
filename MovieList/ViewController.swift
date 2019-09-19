@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     var movies: [Results] = []
     var page = 1
     var sortBy = "desc"
+    var refreshControl = UIRefreshControl()
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loadingView: UIActivityIndicatorView!
@@ -24,6 +25,16 @@ class ViewController: UIViewController {
         tableView.register(nib, forCellReuseIdentifier: "MovieTableViewCell")
         getMovies(sortBy: "desc")
         
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(refresh(sender: )), for: UIControl.Event.valueChanged)
+        tableView.addSubview(refreshControl)
+        
+    }
+    
+    @objc func refresh(sender:AnyObject) {
+        self.movies.removeAll()
+        page = 1
+        getMovies(sortBy:sortBy)
     }
     
     @IBAction func sort(_ sender: Any) {
@@ -37,14 +48,14 @@ class ViewController: UIViewController {
             self.movies.removeAll()
             self.page = 1
             self.sortBy = "asc"
-            self.getMovies(sortBy: "asc")
+            self.getMovies(sortBy: self.sortBy)
         }))
         
         alert.addAction(UIAlertAction(title: "DESC", style: .default, handler: { (_) in
             self.movies.removeAll()
             self.page = 1
             self.sortBy = "desc"
-            self.getMovies(sortBy: "desc")
+            self.getMovies(sortBy: self.sortBy)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (_) in
@@ -88,12 +99,16 @@ class ViewController: UIViewController {
                 getMovies(sortBy: "asc")
             }
         }
+        else if(indexPath.row == 1 && loadingView.isHidden){
+            refreshControl.endRefreshing()
+        }
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail",
             let viewController = segue.destination as? DetailViewController,
             let movieItem = sender as? Results {
             viewController.movieItem = movieItem
+            viewController.delegate = self
         }
     }
 
@@ -118,5 +133,11 @@ extension ViewController: UITableViewDelegate {
             let movieItem = movies[indexPath.row]
             self.performSegue(withIdentifier: "showDetail", sender: movieItem)
         }
+    }
+}
+
+extension ViewController: ReloadTableViewDelegate {
+    func reloadTableView() {
+        tableView.reloadData()
     }
 }

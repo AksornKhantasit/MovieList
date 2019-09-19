@@ -9,10 +9,17 @@
 import UIKit
 import Cosmos
 
+protocol ReloadTableViewDelegate: class {
+    func reloadTableView()
+}
+
 class DetailViewController: UIViewController {
+    
     
     public var movieItem: Results!
     var moviesdetail: [MovieDetail] = []
+    var delegate: ReloadTableViewDelegate?
+    var avg = 0.0
     
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var txtTitle: UILabel!
@@ -30,18 +37,25 @@ class DetailViewController: UIViewController {
         getMovieDetail()
         getcosmos()
     }
-    
     func getcosmos()  {
-        let key = String(self.movieItem.id)
         cosmos.didTouchCosmos = { rating in
             print("Rated: \(rating)")
-            UserDefaults.standard.set( rating , forKey: key)
+            if !self.cosmos.rating.isNaN {
+                self.calculatorAvg(rated: rating)
+            }
+            UserDefaults.standard.set( rating , forKey: "rating\(self.movieItem.id)")
+            self.delegate?.reloadTableView()
         }
-//        print(key)
-//        var rated = Double(UserDefaults.standard.string(forKey: "key") ?? "8") as! Double
-//        print("getRating : \(rated)")
-        //cosmos.rating = 3
-        
+        var rated = Double(UserDefaults.standard.string(forKey: "rating\(self.movieItem.id)") ?? "0") as! Double
+        print("getRating : \(rated)")
+        self.cosmos.rating = rated
+    }
+    func calculatorAvg(rated: Double) {
+        if rated > 0 {
+            avg = ((movieItem.voteAverage * movieItem.voteCount) + rated)/(movieItem.voteCount + 1)
+            UserDefaults.standard.set( avg , forKey: "avg\(self.movieItem.id)")
+            print(avg)
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
