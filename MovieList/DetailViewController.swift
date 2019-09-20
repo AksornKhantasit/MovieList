@@ -36,17 +36,19 @@ class DetailViewController: UIViewController {
         getcosmos()
     }
     func getcosmos()  {
+        cosmos.settings.fillMode = .half
         cosmos.didTouchCosmos = { rating in
-            print("Rated: \(rating)")
+            let rat = rating * 2
+            print("Rating: \(rat)")
             if !self.cosmos.rating.isNaN {
-                self.calculatorAvg(rated: rating)
+                self.calculatorAvg(rated: rat)
             }
-            UserDefaults.standard.set( rating , forKey: "rating\(self.movieItem.id)")
+            UserDefaults.standard.set( rat , forKey: "rating\(self.movieItem.id)")
             self.delegate?.reloadTableView()
         }
         let rated = UserDefaults.standard.double(forKey: "rating\(self.movieItem.id)")
         print("getRating : \(rated)")
-        self.cosmos.rating = rated
+        self.cosmos.rating = rated/2
     }
     func calculatorAvg(rated: Double) {
             avg = ((movieItem.voteAverage * movieItem.voteCount) + rated)/(movieItem.voteCount + 1)
@@ -74,15 +76,10 @@ class DetailViewController: UIViewController {
     func setDetail(moviesdetail: MovieDetail) {
         if !moviesdetail.genres.isEmpty {
             // change for loop
-            for element in moviesdetail.genres {
-                print(element)
-            }
-            let nam = moviesdetail.genres.count - 1
             var strCategory: [String] = []
-            for index in  (0...nam) {
-                strCategory.append(moviesdetail.genres[index].name)
+            for category in moviesdetail.genres {
+                strCategory.append(category.name)
             }
-            
             category.text = strCategory.joined(separator: " , ")
         } else {
             category.text = "-"

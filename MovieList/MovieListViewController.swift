@@ -14,7 +14,12 @@ class MovieListViewController: UIViewController {
     var movies: [Results] = []
     var page = 1
     // change too enum
-    var sortBy = "desc"
+    enum SortB : String{
+        case desc
+        case asc
+    }
+    var sortBy: SortB = .desc
+    
     var refreshControl = UIRefreshControl()
     
     @IBOutlet weak var tableView: UITableView!
@@ -26,7 +31,7 @@ class MovieListViewController: UIViewController {
         let nib = UINib(nibName: "MovieTableViewCell", bundle: bundle)
         tableView.register(nib, forCellReuseIdentifier: "MovieTableViewCell")
         // please use attribute
-        getMovies(sortBy: "desc")
+        getMovies(sortBy: sortBy.rawValue)
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(refresh(sender: )), for: UIControl.Event.valueChanged)
@@ -36,9 +41,9 @@ class MovieListViewController: UIViewController {
     
     @objc func refresh(sender:AnyObject) {
         // add logic to check if page = 1, assign model instead of +=
-        self.movies.removeAll()
+        //self.movies.removeAll()
         page = 1
-        getMovies(sortBy:sortBy)
+        getMovies(sortBy: sortBy.rawValue)
     }
     
     @IBAction func sort(_ sender: Any) {
@@ -49,17 +54,17 @@ class MovieListViewController: UIViewController {
         let alert = UIAlertController(title: "Sort", message: "you want to sort by...", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "ASC", style: .default, handler: { (_) in
-            self.movies.removeAll()
+            //self.movies.removeAll()
             self.page = 1
-            self.sortBy = "asc"
-            self.getMovies(sortBy: self.sortBy)
+            self.sortBy = .asc
+            self.getMovies(sortBy: self.sortBy.rawValue)
         }))
         
         alert.addAction(UIAlertAction(title: "DESC", style: .default, handler: { (_) in
-            self.movies.removeAll()
+            //self.movies.removeAll()
             self.page = 1
-            self.sortBy = "desc"
-            self.getMovies(sortBy: self.sortBy)
+            self.sortBy = .desc
+            self.getMovies(sortBy: self.sortBy.rawValue)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { (_) in
@@ -68,7 +73,6 @@ class MovieListViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    
     func getMovies(sortBy: String) {
         loadingView.isHidden = false
         
@@ -76,7 +80,12 @@ class MovieListViewController: UIViewController {
         apiManager.getMovies(urlString: "http://api.themoviedb.org/3/discover/movie?api_key=328c283cd27bd1877d9080ccb1604c91&primary_release_date.lte=2016-12-31&sort_by=release_date.\(sortBy)&page=\(page)") { [weak self] (result: Result<Movie, APIError>) in
             switch result {
             case .success(let movies):
-                self?.movies += movies.results
+                if self?.page == 1 {
+                    self?.movies = movies.results
+                }
+                else {
+                    self?.movies += movies.results
+                }
                 DispatchQueue.main.sync {
                     self?.loadingView.isHidden = true
                     self?.tableView.reloadData()
@@ -99,12 +108,7 @@ class MovieListViewController: UIViewController {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == movies.count - 1 && loadingView.isHidden {
             // remove redundant logic
-            if sortBy == "desc" {
-                getMovies(sortBy: "desc")
-            }
-            else {
-                getMovies(sortBy: "asc")
-            }
+            getMovies(sortBy: sortBy.rawValue)
         }
         else if(indexPath.row == 1 && loadingView.isHidden) {
             refreshControl.endRefreshing()

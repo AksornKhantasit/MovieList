@@ -14,6 +14,8 @@ enum APIError: Error {
 }
 
 class APIManager {
+    
+    
     func getMovies<T: Codable>(urlString: String, completion: @escaping (Result<T, APIError>) -> Void) {
         guard let url = URL(string: urlString) else {
             return
