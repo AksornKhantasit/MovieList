@@ -8,10 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+// Rename
+class MovieListViewController: UIViewController {
     
     var movies: [Results] = []
     var page = 1
+    // change too enum
     var sortBy = "desc"
     var refreshControl = UIRefreshControl()
     
@@ -23,6 +25,7 @@ class ViewController: UIViewController {
         let bundle = Bundle(for: MovieTableViewCell.self)
         let nib = UINib(nibName: "MovieTableViewCell", bundle: bundle)
         tableView.register(nib, forCellReuseIdentifier: "MovieTableViewCell")
+        // please use attribute
         getMovies(sortBy: "desc")
         
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
@@ -32,6 +35,7 @@ class ViewController: UIViewController {
     }
     
     @objc func refresh(sender:AnyObject) {
+        // add logic to check if page = 1, assign model instead of +=
         self.movies.removeAll()
         page = 1
         getMovies(sortBy:sortBy)
@@ -90,8 +94,11 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == movies.count - 1 && loadingView.isHidden {
+            // remove redundant logic
             if sortBy == "desc" {
                 getMovies(sortBy: "desc")
             }
@@ -99,7 +106,7 @@ class ViewController: UIViewController {
                 getMovies(sortBy: "asc")
             }
         }
-        else if(indexPath.row == 1 && loadingView.isHidden){
+        else if(indexPath.row == 1 && loadingView.isHidden) {
             refreshControl.endRefreshing()
         }
     }
@@ -113,7 +120,7 @@ class ViewController: UIViewController {
     }
 
 }
-extension ViewController: UITableViewDataSource {
+extension MovieListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
@@ -127,7 +134,7 @@ extension ViewController: UITableViewDataSource {
         return cell
     }
 }
-extension ViewController: UITableViewDelegate {
+extension MovieListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if movies.indices.contains(indexPath.row) {
             let movieItem = movies[indexPath.row]
@@ -136,7 +143,7 @@ extension ViewController: UITableViewDelegate {
     }
 }
 
-extension ViewController: ReloadTableViewDelegate {
+extension MovieListViewController: ReloadTableViewDelegate {
     func reloadTableView() {
         tableView.reloadData()
     }

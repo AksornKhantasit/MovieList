@@ -9,8 +9,6 @@
 import UIKit
 import Kingfisher
 
-var imageCache: [String: UIImage] = [:]
-
 class MovieTableViewCell: UITableViewCell {
 
     @IBOutlet weak var title: UILabel!
@@ -21,7 +19,7 @@ class MovieTableViewCell: UITableViewCell {
     
     func setupUI(movie: Results) {
         title.text = movie.title
-        popular.text = "\(movie.popularity)"
+        popular.text = String(format: "%.2f", movie.popularity)
         
         let baseURL = "https://image.tmdb.org/t/p/original"
         let posterPath = movie.posterPath
@@ -34,12 +32,13 @@ class MovieTableViewCell: UITableViewCell {
             let url = URL(string: "\(baseURL)\(backdropPath)")
             backdropImage.kf.setImage(with: url)
         }
-        var getavg = Double(UserDefaults.standard.string(forKey: "avg\(movie.id)") ?? "0") as! Double
+        // userdefault can get double
+        let getavg = UserDefaults.standard.double(forKey: "avg\(movie.id)") ?? 0.0
         if getavg == 0.0 {
-            rating.text = "\(movie.voteAverage)"
+            rating.text = String(format: "%.1f", movie.voteAverage)
         }
         else {
-            rating.text = "\(getavg)"
+            rating.text = String(format: "%.1f", getavg ?? 0.0)
         }
     }
 }

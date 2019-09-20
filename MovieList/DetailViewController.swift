@@ -15,9 +15,7 @@ protocol ReloadTableViewDelegate: class {
 
 class DetailViewController: UIViewController {
     
-    
     public var movieItem: Results!
-    var moviesdetail: [MovieDetail] = []
     var delegate: ReloadTableViewDelegate?
     var avg = 0.0
     
@@ -46,16 +44,14 @@ class DetailViewController: UIViewController {
             UserDefaults.standard.set( rating , forKey: "rating\(self.movieItem.id)")
             self.delegate?.reloadTableView()
         }
-        var rated = Double(UserDefaults.standard.string(forKey: "rating\(self.movieItem.id)") ?? "0") as! Double
+        let rated = UserDefaults.standard.double(forKey: "rating\(self.movieItem.id)")
         print("getRating : \(rated)")
         self.cosmos.rating = rated
     }
     func calculatorAvg(rated: Double) {
-        if rated > 0 {
             avg = ((movieItem.voteAverage * movieItem.voteCount) + rated)/(movieItem.voteCount + 1)
             UserDefaults.standard.set( avg , forKey: "avg\(self.movieItem.id)")
             print(avg)
-        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -64,7 +60,7 @@ class DetailViewController: UIViewController {
     
     func setTitle(movieItem: Results) {
         txtTitle.text = movieItem.title
-        popular.text = "\(movieItem.popularity)"
+        popular.text = String(format: "%.2f", movieItem.popularity)
         overView.text = movieItem.overview
         
         let baseURL = "https://image.tmdb.org/t/p/original"
@@ -77,11 +73,16 @@ class DetailViewController: UIViewController {
     
     func setDetail(moviesdetail: MovieDetail) {
         if !moviesdetail.genres.isEmpty {
+            // change for loop
+            for element in moviesdetail.genres {
+                print(element)
+            }
             let nam = moviesdetail.genres.count - 1
             var strCategory: [String] = []
             for index in  (0...nam) {
                 strCategory.append(moviesdetail.genres[index].name)
             }
+            
             category.text = strCategory.joined(separator: " , ")
         } else {
             category.text = "-"
@@ -91,10 +92,10 @@ class DetailViewController: UIViewController {
    
     func getMovieDetail() {
         let apiManager = APIManager()
+        // url
         apiManager.getMovies(urlString: "https://api.themoviedb.org/3/movie/\(movieItem.id)?api_key=328c283cd27bd1877d9080ccb1604c91") { [weak self] (result: Result<MovieDetail, APIError>) in
             switch result {
             case .success(let moviesdetail):
-                self?.moviesdetail.append(moviesdetail)
                 DispatchQueue.main.sync {
                     self?.setDetail(moviesdetail: moviesdetail)
                 }
